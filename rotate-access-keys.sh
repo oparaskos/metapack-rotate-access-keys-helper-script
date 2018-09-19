@@ -1,3 +1,11 @@
+# Check pre-requisites are installed.
+echo "true" | jq > /dev/null
+if [[ $? -ne 0 ]]; then
+  echo "Missing required utility 'jq'"
+  echo "please run 'brew install jq'"
+  exit 127
+fi
+
 # Store a backup of config and credentials.
 cp ~/.aws/config ~/.aws/config.bak
 cp ~/.aws/credentials ~/.aws/credentials.bak
