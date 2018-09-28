@@ -5,7 +5,6 @@ if [[ $? -ne 0 ]]; then
   echo "please run 'brew install jq'"
   exit 127
 fi
-exit 0
 # Store a backup of config and credentials.
 cp ~/.aws/config ~/.aws/config.bak
 cp ~/.aws/credentials ~/.aws/credentials.bak
