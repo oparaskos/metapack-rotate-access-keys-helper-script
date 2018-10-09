@@ -36,11 +36,6 @@ if [[ -z `echo $PROFILES` ]]; then
     PROFILES="playground staging production"
 fi
 
-if [[ "$PROFILES" != *"playground"* ]]; then
-  echo "Expected at least 'playground' in the profiles list!"
-  exit 1
-fi
-
 echo "Generate credentials for the profiles [$PROFILES]"
 
 old_keys=""
@@ -81,10 +76,12 @@ do
   timer_bar 2
 done
 
-echo "Setting playground credentials as default"
-# Set default to playground credentials
-aws configure set aws_access_key_id `aws configure get aws_access_key_id --profile playground`
-aws configure set aws_secret_access_key `aws configure get aws_secret_access_key --profile playground`
+if [[ "$PROFILES" != *"playground"* ]]; then
+  echo "Setting playground credentials as default"
+  # Set default to playground credentials
+  aws configure set aws_access_key_id `aws configure get aws_access_key_id --profile playground`
+  aws configure set aws_secret_access_key `aws configure get aws_secret_access_key --profile playground`
+fi
 
 # Wait for some time, AWS needs some time before the credentials are usable.
 
